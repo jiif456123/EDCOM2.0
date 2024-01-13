@@ -1,0 +1,47 @@
+@import "~node_modules/ngx-chips/core/styles/core/_core.scss";
+
+$foundation-primary: #9272f0;
+$foundation-primary-dark: darken($foundation-primary, 8%);
+
+// this is the container's theme
+$foundation-theme: (
+    container-border-bottom: 1px solid $foundation-primary,
+);
+
+// this is the tag's theme
+$foundation-tag-theme: (
+    background: $foundation-primary,
+    background-focused: $foundation-primary-dark,
+    background-active: $foundation-primary-dark,
+    background-hover: $foundation-primary-dark,
+    color: #fff,
+    color-hover: #fff,
+    line-height: 30px,
+    font-weight: 390,
+    border-radius: 30px
+);
+
+// this is the delete icon's theme
+$foundation-icon-theme: (
+    fill: #fff,
+    fill-focus: #eee,
+    transition: all 0.35s
+);
+
+// apply theme to the container
+::ng-deep tag-input .ng2-tag-input.foundation-theme {
+    @include tag-input-theme($foundation-theme);
+}
+::ng-deep tag-input .ng2-tag-input.ng2-tag-input--focused.foundation-theme {
+    border-bottom: 2px solid #8260e7;
+}
+
+// apply theme to the tags
+::ng-deep tag-input .ng2-tag-input.foundation-theme tag {
+    @include tag-theme($foundation-tag-theme);
+}
+
+// apply theme to the delete icon
+::ng-deep tag-input .ng2-tag-input.foundation-theme tag delete-icon {
+    @include icon-theme($foundation-icon-theme);
+}

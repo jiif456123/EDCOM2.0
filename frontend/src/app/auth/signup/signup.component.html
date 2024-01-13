@@ -1,0 +1,76 @@
+<!-- Start wrapper-->
+<div id="wrapper">
+
+    <div class="height-100v d-flex align-items-center justify-content-center ">
+            <div class="card card-authentication1 border-primary border-top-sm mb-0">
+                <div class="card-body">
+                    <div class="card-content p-2">
+                            <div class="text-center">
+                                <img src="assets/images/logo-icon.png" alt="logo icon">
+                            </div>
+                        <div class="card-title text-uppercase text-center py-1">Sign Up</div>
+                        <form (ngSubmit)="onSubmit()" #f="ngForm">
+                            <div class="form-group">
+                                <div class="position-relative has-icon-left">
+                                <label for="exampleInputName" class="sr-only">Name</label>
+                                <input type="text" id="exampleInputName" name="exampleInputName" class="form-control" placeholder="Name" ngModel required>
+                                <div class="form-control-position">
+                                    <i class="icon-user"></i>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="position-relative has-icon-left">
+                                <label for="exampleInputEmailId" class="sr-only">Email ID</label>
+                                <input type="text" id="exampleInputEmailId"  name="exampleInputEmailId" class="form-control" placeholder="Email ID" ngModel required>
+                                <div class="form-control-position">
+                                    <i class="icon-envelope-open"></i>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="position-relative has-icon-left">
+                                <label for="exampleInputPassword" class="sr-only">Password</label>
+                                <input type="text" id="exampleInputPassword" name="exampleInputPassword" class="form-control" placeholder="Password" ngModel required>
+                                <div class="form-control-position">
+                                    <i class="icon-lock"></i>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="position-relative has-icon-left">
+                                <label for="exampleInputRetryPassword" class="sr-only">Retry Password</label>
+                                <input type="password" id="exampleInputRetryPassword" name="exampleInputRetryPassword" class="form-control" placeholder="Retry Password" ngModel required>
+                                <div class="form-control-position">
+                                    <i class="icon-lock"></i>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="icheck-material-primary">
+                                <input type="checkbox" id="user-checkbox" checked />
+                                <label for="user-checkbox">I Accept terms & conditions</label>
+                            </div>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-block waves-effect waves-light">Sign Up</button>
+                            <div class="text-center pt-3">
+                            <p>or Sign up with</p>
+                            <div class="form-row mt-4">
+                            <div class="form-group mb-0 col-6">
+                                <button type="button" class="btn bg-facebook text-white btn-block"><i class="fa fa-facebook-square"></i> Facebook</button>
+                            </div>
+                            <div class="form-group mb-0 col-6 text-right">
+                            <button type="button" class="btn bg-twitter text-white btn-block"><i class="fa fa-twitter-square"></i> Twitter</button>
+                            </div>
+                            </div>
+
+                            <hr>
+
+                            <p>Already have an account? <a href="JavaScript:;" (click)="onSignin()"> Sign In here</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div><!--wrapper-->

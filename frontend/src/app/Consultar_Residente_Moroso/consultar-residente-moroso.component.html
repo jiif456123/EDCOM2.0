@@ -1,0 +1,55 @@
+<div class="form-group">
+    <label>Residentes Morosos</label>
+    <div class="card">
+        <div class="card-header text-uppercase" name="fecha">Seleccionar la fecha</div>
+        <div class="card-body">
+            <div>
+                <input type="date" id="fecha" class="form-control" name="fecha" [(ngModel)]="resi.fecha"
+                    placeholder="Buscar Fecha ...." #mes>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover border border">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover border border">
+                    <thead style="color: black;">
+                        <tr>
+                            <th class="text-left">Nombre</th>
+                            <th class="text-center">#Departamento</th>
+                            <th class="text-center">Fecha de Pago</th>
+                            <th class="text-center">Monto</th>
+                            <th class="text-center" colspan="1">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tr *ngFor="let r of resis | filterBy: resi">
+                        <td class="text-left">{{r.nombre}}</td>
+                        <td class="text-center">Departamento N° {{r.ndepartamento}}</td>
+                        <td class="text-center">{{r.fecha | date:'dd/MM/yyyy'}}</td>
+                        <td class="text-center">S/ {{r.monto}}</td>
+                        <td class="text-center">
+                            <button (click)="fnAbrirModal(r);" class="btn btn-success btn-sm btn-block">
+                                <i class="mdi mdi-update mdi-18px">Ver</i>
+                            </button>
+                        </td>
+                </table>
+            </div>
+        </table>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">VER DETALLE DEL RESIDENTE MOROSO</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <p class="text-center">Nombre del residente moroso: {{ residentess?.nombre }}</p>
+        <p class="text-center">Numero del Departamento: {{ residentess?.ndepartamento }}</p>
+        <p class="text-center">Monto del residente moroso: {{ residentess?.monto }}</p>
+        <p class="text-center">Fecha Programada: {{ residentess?.fecha | date: "dd/MM/yyyy" }}</p>
+    </div>
+</ng-template>

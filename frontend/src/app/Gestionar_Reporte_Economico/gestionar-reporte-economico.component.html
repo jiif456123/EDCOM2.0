@@ -1,0 +1,107 @@
+<button type="button" class="btn btn-outline-primary" (click)="Summa()" (click)="SummaI()" style="margin-bottom: 10px; float: right;">
+  <i class="mdi mdi-pencil mdi-18px">Calcular Reporte</i>
+</button>
+<div class="form-group">
+    <label>INGRESOS</label>
+    <button type="button" class="btn btn-outline-primary" routerLink="nuevoI" style="margin-bottom: 10px; float: right;">
+      <i class="mdi mdi-pencil mdi-18px">REGISTRAR INGRESOS</i>
+    </button>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover border border">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover border border">
+                    <thead style="color: black;">
+                        <tr>
+                            <th class="text-left">Nombre</th>
+                            <th class="text-center">Monto por departamento</th>
+                            <th class="text-right">Pago total</th>
+                        </tr>
+                    </thead>
+                    <tr *ngFor="let i of ingresos">
+                        <td class="text-left">{{i.nombre}}</td>
+                        <td class="text-center">S/ {{i.monto}}</td>
+                        <td class="text-right">S/ {{i.monto*51}}</td>
+                </table>
+            </div>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">TOTAL DE INGRESOS</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title text-right">S/ {{ Total | currency:' '}}</h5>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label>EGRESOS</label>
+    <button type="button" class="btn btn-outline-primary" routerLink="nuevoE" style="margin-bottom: 10px; float: right;">
+      <i class="mdi mdi-pencil mdi-18px">REGISTRAR EGRESOS</i>
+    </button>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover border border">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover border border">
+                    <thead style="color: black;">
+                        <tr>
+                            <th class="text-left">Nombre</th>
+                            <th class="text-right">Monto</th>
+                        </tr>
+                    </thead>
+                    <tr *ngFor="let e of egresos">
+                        <td class="text-left">{{e.nombre}}</td>
+                        <td class="text-right">S/ {{e.monto}}</td>
+                </table>
+            </div>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">TOTAL DE EGRESOS</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-right">S/ {{ Total1 | currency:' '}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">RESUMEN </h5>
+                    <h5 class="card-title">SALDO DE CAJA</h5>
+                    <h5 class="card-title">CUENTAS POR COBRAR</h5>
+                    <h5 class="card-title">SALDO DISPONIBLE</h5>
+                    <h5 class="card-title">CAPITAL DE TRABAJO</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-right">INTRO</h5>
+                    <h5 class="card-title text-right">S/ {{ Total-Total1 | currency:' '}}</h5>
+                    <h5 class="card-title text-right">S/ {{ 2000 | currency:' '}}</h5>
+                    <h5 class="card-title text-right">S/ {{ Total-Total1+2000 | currency:' '}}</h5>
+                    <h5 class="card-title text-right">S/ {{ Total-Total1+200 | currency:' '}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

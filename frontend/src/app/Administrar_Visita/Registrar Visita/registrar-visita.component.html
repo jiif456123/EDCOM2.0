@@ -1,0 +1,95 @@
+<div class="col-lg-5 col-md-5 col-xs-5">
+    <label>Registrar Visita {{visitas.length}}</label>
+    <div class="card border">
+        <div class="card-body">
+            <div class="card-body">
+                <form [formGroup]="formVisita">
+                    <div class="form-row">
+                        <div class="form-group col-lg-12 col-md-12 col-xs-12">
+                            <label for="nombres">Nombres</label>
+                            <input type="text" id="nombres" class="form-control" pattern="[A-Za-z ]{1,255}" placeholder="Nombres" formControlName="nombres">
+                            <div class="pt-1 text-danger" *ngIf="invalid('nombres') || nombresAux">
+                                <span class="form-control-feedback">
+                          <i class="mdi mdi-close-circle"></i> Ingresar los nombres sin ningún <strong>número.</strong>
+                      </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-lg-12 col-md-12 col-xs-12">
+                            <label for="apellidos">Apellidos</label>
+                            <input type="text" id="apellidos" class="form-control" pattern="[A-Za-z ]{1,255}" placeholder="Apellidos" formControlName="apellidos">
+                            <div class="pt-1 text-danger" *ngIf="invalid('apellidos') || apellidosAux">
+                                <span class="form-control-feedback">
+                          <i class="mdi mdi-close-circle"></i> Ingresar los apellidos sin ningún <strong>número.</strong>
+                      </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-lg-12 col-md-12 col-xs-12">
+                            <label for="nacompanantes">Numero de acompañantes</label>
+                            <input type="number" min="1" max="9" id="nacompanantes" class="form-control" pattern="[0-9]{1,2}" placeholder="N° de acompañantes" formControlName="nacompanantes">
+                            <div class="pt-1 text-danger" *ngIf="invalid('nacompanantes') || nacompanantesAux">
+                                <span class="form-control-feedback">
+                        <i class="mdi mdi-close-circle"></i> Por favor ingresar un número limitado de <strong>acompañantes.</strong>
+                    </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-lg-12 col-md-12 col-xs-12">
+                            <label for="departamento">Departamento</label>
+                            <input type="text" id="departamento" class="form-control" placeholder="Departamento" formControlName="departamento">
+                            <div class="pt-1 text-danger" *ngIf="invalid('departamento') || departamentoAux">
+                                <span class="form-control-feedback">
+                      <i class="mdi mdi-close-circle"></i> Este campo es <strong>requerido.</strong>
+                  </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-lg-12 col-md-12 col-xs-12">
+                            <label for="fechaProgramada">Fecha Programada</label>
+                            <input type="datetime-local" id="fechaProgramada" class="form-control" placeholder="fechaProgramada" formControlName="fechaProgramada">
+                            <div class="pt-1 text-danger" *ngIf="invalid('fechaProgramada') || fechaProgramadaAux">
+                                <span class="form-control-feedback">
+                    <i class="mdi mdi-close-circle"></i> Este campo es <strong>requerido.</strong>
+                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-lg-12 col-md-12 col-xs-12">
+                            <label for="horaProgramada">Hora Programada</label>
+                            <input type="datetime-local" id="horaProgramada" class="form-control" placeholder="horaProgramada" formControlName="horaProgramada">
+                            <div class="pt-1 text-danger" *ngIf="invalid('horaProgramada') || horaProgramadaAux">
+                                <span class="form-control-feedback">
+                  <i class="mdi mdi-close-circle"></i> Este campo es <strong>requerido.</strong>
+              </span>
+                            </div>
+                        </div>
+                    </div>
+                    <td class="text-center">
+                        <ng-container *ngIf="!editar; else editarVisita">
+                            <button [disabled]="formVisita.invalid" type="submit" class="btn btn-success" (click)="operar()">
+          <i class="mdi mdi-pencil mdi-18px">Registrar</i>
+        </button>
+                        </ng-container>
+                    </td>
+                    <ng-template #editarVisita>
+                        <td class="text-center">
+                            <button [disabled]="formVisita.invalid" type="submit" class="btn btn-warning" (click)="operar()">
+          <i class="mdi mdi-update mdi-18px">Editar</i>
+        </button>
+                        </td>
+                    </ng-template>
+                    <td class="text-center">
+                        <button type="button" role="button" class="btn btn-danger ml-2" routerLink="/administrarvisita">
+        Regresar<i class="mdi mdi-arrow-left-bold mdi-18px"></i> </button>
+                    </td>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

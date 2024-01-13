@@ -1,0 +1,51 @@
+<div class="col-lg-5 col-md-5 col-xs-5">
+    <label>Registrar Ingreso {{ingresos.length}}</label>
+    <div class="card border">
+        <div class="card-body">
+            <div class="card-body">
+                <form [formGroup]="formIngreso">
+                    <div class="form-row">
+                        <div class="form-group col-lg-12 col-md-12 col-xs-12">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" min="0" id="nombre" class="form-control" pattern="[A-Za-z ]{1,255}" placeholder="Nombre" formControlName="nombre">
+                            <div class="pt-1 text-danger" *ngIf="invalid('nombre') || nombreAux">
+                                <span class="form-control-feedback">
+                        <i class="mdi mdi-close-circle"></i> El nombre del ingreso no acepta <strong>números.</strong>
+                    </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-lg-12 col-md-12 col-xs-12">
+                            <label for="monto">Monto</label>
+                            <input type="number" min="0" id="monto" class="form-control" pattern="^[0-9]+" placeholder="Monto" formControlName="monto">
+                            <div class="pt-1 text-danger" *ngIf="invalid('monto') || montoAux">
+                                <span class="form-control-feedback">
+                        <i class="mdi mdi-close-circle"></i> Ingresar un monto <strong>valido.</strong>
+                    </span>
+                            </div>
+                        </div>
+                    </div>
+                    <td class="text-center">
+                        <ng-container *ngIf="!editar; else editarIngreso">
+                            <button [disabled]="formIngreso.invalid" type="submit" class="btn btn-success" (click)="operar()">
+        <i class="mdi mdi-pencil mdi-18px">Registrar</i>
+      </button>
+                        </ng-container>
+                    </td>
+                    <ng-template #editarIngreso>
+                        <td class="text-center">
+                            <button [disabled]="formIngreso.invalid" type="submit" class="btn btn-warning" (click)="operar()">
+        <i class="mdi mdi-update mdi-18px">Editar</i>
+      </button>
+                        </td>
+                    </ng-template>
+                    <td class="text-center">
+                        <button type="button" role="button" class="btn btn-danger ml-2" routerLink="/gestionarreporteeconomico">
+      Regresar<i class="mdi mdi-arrow-left-bold mdi-18px"></i> </button>
+                    </td>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

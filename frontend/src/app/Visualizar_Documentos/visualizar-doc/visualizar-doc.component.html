@@ -1,0 +1,88 @@
+<div class="row" style="margin-bottom: 15px">
+    <div class="col-md-8 d-flex justify-content-end" style="margin-bottom: 10px;">
+        <input [(ngModel)]="filtro" type="text" class="form-control" placeholder="Buscar" />
+    </div>
+    <!--Button zona-->
+</div>
+
+<div class="row">
+    <!--Tabla-->
+    <div class="table-responsive">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Resumen</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let res of documento | filter: filtro">
+                    <th scope="row">
+                        {{ res.nombre }}
+                    </th>
+                    <td>{{ res.resumen }}</td>
+                    <td>{{ res.categoria }}</td>
+                    <td>
+                        <button style="margin: 3px" (click)="descargar(res.filePath)" class="btn btn-dark">
+                            <i class="fa fa-download" aria-hidden="true"></i>
+                        </button>
+                        <button style="margin: 3px" (click)="abrirModalAct(res)" class="btn btn-dark">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+<ng-template #contentActualizar let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Documento</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click'); cerrarModal()">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <form [formGroup]="formDocumentAct" class="row">
+
+            <div class="form-group col-md-12">
+                <label for="Nombreasd">Nombre:</label>
+                <input readonly formControlName="nombre" type="text" class="form-control" id="Nombreasd" placeholder="">
+            </div>
+
+            <div class="form-group col-md-12">
+                <label for="Nombre">Resumen:</label>
+                <input readonly formControlName="resumen" type="text" class="form-control" id="Nombre12"
+                    placeholder="resumen">
+            </div>
+
+            <div class="form-group col-md-12">
+                <label for="Paterno12">Categoría:</label>
+                <input readonly formControlName="categoria" type="text" class="form-control" id="Paterno12"
+                    placeholder="categoria">
+            </div>
+
+            <div class="form-group col-md-12">
+                <label for="Paterno">Estado:</label>
+                <input readonly formControlName="estado" type="text" class="form-control" id="Nombre"
+                    placeholder="categoria">
+            </div>
+
+            <div class="form-group col-md-12">
+                <label for="Materno">Descargar:</label>
+                <button style="margin: 3px" (click)="descargar(documentoSeleccionado.filePath)" class="btn btn-dark">
+                    <i class="fa fa-download" aria-hidden="true"></i>
+                </button>
+            </div>
+
+
+        </form>
+    </div>
+</ng-template>

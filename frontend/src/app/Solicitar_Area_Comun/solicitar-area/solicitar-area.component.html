@@ -1,0 +1,88 @@
+<div class="row">
+    <div class="col-md-8 d-flex justify-content-end" style="margin-bottom: 10px">
+        <input [(ngModel)]="filtro" type="text" class="form-control" placeholder="Buscar" />
+    </div>
+    <!--Button zona-->
+    <div class="col-md-4 d-flex justify-content-end" style="margin-bottom: 10px">
+        <button type="button" (click)="abrirModal()" class="btn btn-primary">
+      Agregar
+    </button>
+    </div>
+</div>
+<div class="row">
+    <!--Tabla-->
+    <div class="table-responsive">
+        <table style="width: 100%" class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Área</th>
+                    <th scope="col">Evento</th>
+                    <th scope="col">Inicio</th>
+                    <th scope="col">Final</th>
+                    <th scope="col">Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let res of lReserva | filter: filtro">
+                    <td>{{ res.areacomun.nombre }}</td>
+                    <td>{{ res.nombre }}</td>
+                    <td>{{ res.fechaInicio | date: "medium" }}</td>
+                    <td>{{ res.fechaFin | date: "medium" }}</td>
+                    <td>
+                        {{ res.estado == "2" ? "Pendiente" : res.estado == "1" ? "Aprobado" : "Rechazado" }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Agregar reserva</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true"> × </span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="formReserva" class="row">
+            <div class="form-group col-md-12">
+                <label for="nombre">Reserva</label>
+                <input formControlName="txtNombre" type="text" class="form-control" id="nombre" placeholder="reserva" />
+            </div>
+
+            <div class="form-group col-md-12">
+                <label for="area">Area</label>
+                <select formControlName="cboArea" class="form-control" id="area">
+          <option>Seleccione</option>
+          <option *ngFor="let area of lArea" [value]="area._id">
+            {{ area.nombre }}
+          </option>
+        </select>
+            </div>
+        </form>
+
+        <p *ngIf="fechaInicio != null">
+            {{ fechaInicio.getDate() }}/ {{ fechaInicio.getMonth() + 1 }} /{{ fechaInicio.getFullYear() }} - {{ fechaInicio.getHours() }}:{{ fechaInicio.getMinutes() }}
+        </p>
+        <div class="form-group col-md-12">
+            <label>Fecha inicio</label>
+            <dl-date-time-picker [startDate]="fechaHoy" [(ngModel)]="fechaInicio" startView="month" maxView="year" minView="minute">
+            </dl-date-time-picker>
+        </div>
+        <p *ngIf="fechaFin != null">
+            {{ fechaFin.getDate() }}/ {{ fechaFin.getMonth() + 1 }} /{{ fechaFin.getFullYear() }} - {{ fechaFin.getHours() }}: {{ fechaFin.getMinutes() }}
+        </p>
+        <div *ngIf="fechaInicio != null" class="form-group col-md-12">
+            <label>Fecha Fin</label>
+            <dl-date-time-picker [startDate]="fechaInicio" [(ngModel)]="fechaFin" startView="month" maxView="year" minView="minute">
+            </dl-date-time-picker>
+        </div>
+
+        <div *ngIf="fechaInicio != null && fechaFin != null" class="col-md-12 d-flex justify-content-end" style="margin-bottom: 10px">
+            <button type="button" (click)="agregarReserva()" class="btn btn-primary">
+        Agregar
+      </button>
+        </div>
+    </div>
+</ng-template>

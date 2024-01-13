@@ -1,0 +1,28 @@
+<!-- Start wrapper-->
+<div id="wrapper">
+
+	<div class="height-100v d-flex align-items-center justify-content-center ">
+		<div class="card card-authentication1 border-primary border-top-sm mb-0">
+			<div class="card-body">
+				<div class="card-content p-2">
+					<div class="card-title text-uppercase text-center py-3">Cambiar contraseña:</div>
+					<form [formGroup]="formCorreo">
+						<div class="form-group">
+							<div class="position-relative has-icon-right">
+								<label for="exampleInputUsername" class="sr-only">Correo de recuperación:</label>
+								<input (keydown.enter)="Enviar()" formControlName="txtCorreo" type="text" id="exampleInputUsername"
+									class="form-control form-control" placeholder="Correo">
+								<div class="form-control-position">
+									<i class="icon-user"></i>
+								</div>
+							</div>
+						</div>
+						<button type="button" (click)="Enviar()"
+							class="btn btn-primary btn-block waves-effect waves-light">Enviar</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--wrapper-->

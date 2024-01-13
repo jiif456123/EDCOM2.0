@@ -1,0 +1,72 @@
+<div class="form-group">
+
+    <div class="card-header text-uppercase">Seleccionar Fecha..
+        <div>
+            <input type="date" class="form-control" [(ngModel)]="registrarPaquetes.fechaEmitida" placeholder="Buscar Mes ....">
+        </div>
+    </div>
+</div>
+<div class="card-body">
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover border border">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover border border">
+                    <thead style="color: black;">
+                        <tr>
+                            <th class="text-center">Residente</th>
+                            <th class="text-center">Departamento</th>
+                            <th class="text-center">Fecha Emitida</th>
+                            <th class="text-center">Estado</th>
+                            <th class="text-center" colspan="2">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tr *ngFor="let r of registrarpaquetes | filterBy: registrarPaquetes">
+                        <td class="text-center"> {{r.resi.nombre}}</td>
+                        <td class="text-center"> {{r.resi.ndepartamento}}</td>
+                        <td class="text-center"> {{r.fechaEmitida | date:'dd/MM/yyyy'}}</td>
+                        <th class="text-center">
+                            <ng-container *ngIf="r.estado==0">
+                                <span>
+                               No Entregado      
+                            </span>
+                            </ng-container>
+                            <ng-container *ngIf="r.estado==1">
+                                <span>
+                               Entregado      
+                            </span>
+                            </ng-container>
+                        </th>
+                        <td class="text-center">
+                            <button class="btn btn-success btn-sm btn-block" (click)="abrir(content); seleccionar(r)">
+                              <i class="mdi mdi-update mdi-12px">Ver</i> 
+                           </button>
+                        </td>
+                        <td class="text-center">
+                            <button [disabled]="r.estado==1" class="btn btn-outline-primary btn-sm btn-block" (click)="entregado(r,1)">
+                              <i class="mdi mdi-delete-empty mdi-12px">Entregado</i>
+                                 </button>
+                        </td>
+                </table>
+            </div>
+        </table>
+    </div>
+</div>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">VER DETALLE DEL PAQUETE</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <img src="https://img.icons8.com/fluent/48/000000/close-window.png" width="30" height="30"/>
+</button>
+    </div>
+    <div class="modal-body">
+
+        <p class="text-center">Nombre de Residente: {{paque?.resi.nombre }}</p>
+        <p class="text-center">Departamento: {{ paque?.resi.ndepartamento }}</p>
+        <p class="text-center">Fecha Programada: {{ paque?.fechaEmitida | date: "dd/MM/yyyy" }}</p>
+        <p class="text-center">Cantidad de Paquetes: {{ paque?.cantidad }}</p>
+        <p class="text-center">Descripción: {{ paque?.descripcion }}</p>
+    </div>
+</ng-template>

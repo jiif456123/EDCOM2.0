@@ -1,0 +1,39 @@
+<div class="form-group">
+    <label>ADMINISTRAR VISITA</label>
+    <button type="button" class="btn btn-outline-primary" style="margin-bottom: 10px; float: right;" routerLink="nuevo">
+    <i class="mdi mdi-pencil mdi-18px">REGISTRAR VISITA</i>
+  </button>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover border border">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover border border">
+                    <thead style="color: black;">
+                        <tr>
+                            <th class="text-left">Visitante</th>
+                            <th class="text-center">Acompañantes</th>
+                            <th class="text-center">Fecha Programada</th>
+                            <th class="text-center">Hora Programada</th>
+                            <th class="text-right" colspan="2">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tr *ngFor="let v of visitas">
+                        <td class="text-left">{{v.nombres}}</td>
+                        <td class="text-center">{{v.nacompanantes}}</td>
+                        <td class="text-center">{{v.fechaProgramada | date:'dd/MM/yyyy'}}</td>
+                        <td class="text-center">{{v.horaProgramada | date:'hh:mm:ss a'}}</td>
+                        <td class="text-center"></td>
+                        <td class="text-center">
+                            <button class="btn btn-success btn-sm btn-block" [routerLink]="['editar', v._id]">
+                            <i class="mdi mdi-update mdi-18px">Actualizar</i>
+                        </button>
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btn-success btn-sm btn-block" (click)="eliminar(v._id)" routerLink="/administrarvisita">
+                          <i class="mdi mdi-update mdi-18px">ELiminar</i>
+                      </button>
+                        </td>
+                </table>
+            </div>
+        </table>
+    </div>
+</div>

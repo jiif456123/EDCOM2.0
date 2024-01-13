@@ -1,0 +1,95 @@
+<div class="col-lg-5 col-md-5 col-xs-5">
+    <label>Registrar Asunto {{presupuestos.length}}</label>
+    <div class="card border">
+        <div class="card-body">
+            <div class="card-body">
+                <form [formGroup]="formPresupuesto">
+                    <div class="form-group col-lg-16 col-md-16 col-xs-16">
+                        <label for="asunto">Seleccionar Asunto</label>
+                        <select id="asunto" class="form-control" formControlName="asunto">
+                        <option *ngFor="let vrol of this.asunto" [value]="vrol.desc">{{vrol.desc}}</option>
+                  </select>
+                        <div class="pt-1 text-danger" *ngIf="invalid('asunto') || asuntoAux">
+                            <span class="form-control-feedback">
+                          <i class="mdi mdi-close-circle"></i> Este campo es <strong>requerido.</strong>
+                      </span>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-16 col-md-16 col-xs-16">
+                        <label for="mes">Seleccionar el mes</label>
+                        <select id="mes" class="form-control" formControlName="mes">
+                      <option *ngFor="let m of this.mess" [value]="m.ta">{{m.ta}}</option>
+              </select>
+                        <div class="pt-1 text-danger" *ngIf="invalid('mes') || mesAux">
+                            <span class="form-control-feedback">
+                      <i class="mdi mdi-close-circle"></i> Este campo es <strong>requerido.</strong>
+                  </span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-lg-12 col-md-12 col-xs-12">
+                            <label for="fechaPago">Fecha Pago</label>
+                            <input type="datetime-local" id="fechaPago" class="form-control" placeholder="yyyy-mm-dd" formControlName="fechaPago" min="2020-12-15" max="2020-12-31">
+                            <div class="pt-1 text-danger" *ngIf="invalid('fechaPago') || fechaPagoAux">
+                                <span class="form-control-feedback">
+                            <i class="mdi mdi-close-circle"></i> Este campo es <strong>requerido.</strong>
+                        </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-lg-12 col-md-12 col-xs-12">
+                            <label for="monto">Monto</label>
+                            <input type="number" min="1" max="9" id="monto" pattern="^[0-9]+" class="form-control" placeholder="Monto" formControlName="monto" [value]="0">
+                            <div class="pt-1 text-danger" *ngIf="invalid('monto') || montoAux">
+                                <span class="form-control-feedback">
+                              <i class="mdi mdi-close-circle"></i> Ingresar un numero válido para el <strong>monto.</strong>
+                          </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-16 col-md-16 col-xs-16">
+                        <label for="estado">Seleccionar el estado de pago</label>
+                        <select id="estado" class="form-control" formControlName="estado">
+                        <option *ngFor="let v of this.pago" [value]="v.ra">{{v.ra}}</option>
+                </select>
+                        <div class="pt-1 text-danger" *ngIf="invalid('estado') || estadoAux">
+                            <span class="form-control-feedback">
+                        <i class="mdi mdi-close-circle"></i> Este campo es <strong>requerido.</strong>
+                    </span>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-16 col-md-16 col-xs-16">
+                        <label for="tipoAsunto">Seleccionar el tipo de asunto del pago</label>
+                        <select id="tipoAsunto" class="form-control" formControlName="tipoAsunto">
+                      <option *ngFor="let t of this.tipo" [value]="t.ga">{{t.ga}}</option>
+              </select>
+                        <div class="pt-1 text-danger" *ngIf="invalid('tipoAsunto') || tipoAsuntoAux">
+                            <span class="form-control-feedback">
+                      <i class="mdi mdi-close-circle"></i> Este campo es <strong>requerido.</strong>
+                  </span>
+                        </div>
+                    </div>
+                    <td class="text-center">
+                        <ng-container *ngIf="!editar; else editarPresupuesto">
+                            <button [disabled]="formPresupuesto.invalid" type="submit" class="btn btn-success" (click)="operar()">
+              <i class="mdi mdi-pencil mdi-18px">Registrar</i>
+            </button>
+                        </ng-container>
+                    </td>
+                    <ng-template #editarPresupuesto>
+                        <td class="text-center">
+                            <button [disabled]="formPresupuesto.invalid" type="submit" class="btn btn-warning" (click)="operar()">
+              <i class="mdi mdi-update mdi-18px">Editar</i>
+            </button>
+                        </td>
+                    </ng-template>
+                    <td class="text-center">
+                        <button type="button" role="button" class="btn btn-danger ml-2" routerLink="/presupuesto">
+            Regresar<i class="mdi mdi-arrow-left-bold mdi-18px"></i> </button>
+                    </td>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

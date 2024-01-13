@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>EMDCON</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+    <link rel="stylesheet" href="assets/vendor/pace/themes/blue/pace-theme-minimal.css" />
+    <style type="text/css">
+        .pace {
+            -webkit-pointer-events: none;
+            pointer-events: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+        
+        .pace-inactive {
+            display: none;
+        }
+        
+        .pace .pace-progress {
+            background: greenyellow;
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            right: 100%;
+            width: 100%;
+            height: 2px;
+        }
+        
+        .page-loading {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            overflow: hidden;
+            background: rgba(51, 51, 51, 1);
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: -1;
+        }
+        
+        .loading-icon {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 38px;
+            height: 38px;
+            margin-left: -19px;
+            margin-top: -19px;
+        }
+        
+        app-root:empty~.page-loading {
+            opacity: 1;
+            z-index: 1;
+        }
+    </style>
+    <script type="text/javascript">
+        (function(window) {
+            // Polyfills DOM4 MouseEvent only on IE11
+            // Fixes ngx-charts line-chart hover
+            // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/MouseEvent#Polyfill
+            if (!!window.MSInputMethodContext && !!document.documentMode || document.documentMode === 10) {
+                function MouseEvent(eventType, params) {
+                    params = params || {
+                        bubbles: false,
+                        cancelable: false
+                    };
+                    var mouseEvent = document.createEvent('MouseEvent');
+                    mouseEvent.initMouseEvent(eventType, params.bubbles, params.cancelable, window, 0, 0, 0, 0, 0, false, false,
+                        false, false, 0, null);
+
+                    return mouseEvent;
+                }
+
+                MouseEvent.prototype = Event.prototype;
+
+                window.MouseEvent = MouseEvent;
+            }
+
+            if (typeof SVGElement.prototype.contains == 'undefined') {
+                SVGElement.prototype.contains = HTMLDivElement.prototype.contains;
+            }
+
+            // Initialize PACE
+            window.paceOptions = {
+                document: true,
+                eventLag: true,
+                restartOnPushState: true,
+                restartOnRequestAfter: true,
+                ajax: {
+                    trackMethods: ['POST', 'GET']
+                }
+            };
+        })(window);
+    </script>
+</head>
+
+<body>
+    <app-root></app-root>
+    <div class="page-loading">
+        <img src="assets/images/oval.svg" class="loading-icon" alt="loading-icon" />
+    </div>
+</body>
+
+</html>

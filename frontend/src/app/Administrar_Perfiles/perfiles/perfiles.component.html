@@ -1,0 +1,193 @@
+<div class="row" style="margin-bottom: 15px">
+    <div class="col-md-8 d-flex justify-content-end" style="margin-bottom: 10px;">
+        <input [(ngModel)]="filtro" type="text" class="form-control" placeholder="Buscar" />
+    </div>
+    <!--Button zona-->
+    <div class="col-md-4 d-flex justify-content-end" style="margin-bottom: 10px;">
+        <button (click)="abrirModal()" type="button" class="btn btn-primary">Agregar</button>
+    </div>
+</div>
+<div class="row">
+    <!--Tabla-->
+    <div class="table-responsive">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Rol</th>
+                    <th scope="col">Celular</th>
+                    <th scope="col">Correo</th>
+                    <th scope="col">Accion</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let res of usuarios | filter: filtro">
+                    <th scope="row">
+                        {{ res.nombre }} {{ res.apellidoPaterno }}
+                    </th>
+                    <td>{{ res.rol }}</td>
+                    <td>{{ res.celular }}</td>
+                    <td>{{ res.username }}</td>
+                    <td>
+                        <button style="margin: 3px" (click)="abrirModalAct(res)" class="btn btn-dark">
+                            <i class="fa fa-edit" aria-hidden="true"></i>
+                        </button>
+                        <button style="margin: 3px" (click)="abrirModalDet(res);"
+                            class="btn btn-dark">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Usuario</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <form [formGroup]="formUsuario" class="row">
+            <div class="form-group col-md-12">
+                <label for="nombreUsuario">Nombre de usuario:</label>
+                <input formControlName="txtUserName" type="email" class="form-control" id="nombreUsuario"
+                    placeholder="Nombre de ususario">
+            </div>
+            <div class="form-group col-md-12">
+                <label for="Nombre">Nombre:</label>
+                <input formControlName="txtNombre" type="text" class="form-control" id="Nombre"
+                    placeholder="Nombre de ususario">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="Paterno">Apellido Paterno:</label>
+                <input formControlName="txtApellidoPat" type="text" class="form-control" id="Paterno"
+                    placeholder="Apellido Paterno">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="Materno">Apellido Materno:</label>
+                <input formControlName="txtApellidoMat" type="text" class="form-control" id="Materno"
+                    placeholder="Apellido Materno">
+            </div>
+
+            <div class="form-group col-md-12">
+                <label for="Contrasea">Contraseña:</label>
+                <input formControlName="txtPassword" type="text" class="form-control" id="Contrasea"
+                    placeholder="*******">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="DNI">DNI:</label>
+                <input formControlName="txtDNI" type="text" class="form-control" id="DNI" placeholder="080808">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="Celular">Celular:</label>
+                <input formControlName="txtCelular" type="text" class="form-control" id="Celular" placeholder="080808">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="ROL">ROL:</label>
+                <select formControlName="cboROL" class="form-control" id="ROL">
+                    <option>Seleccione</option>
+                    <option *ngFor="let vrol of this.rol" [value]="vrol.desc">{{vrol.desc}}</option>
+                </select>
+            </div>
+            <div *ngIf="this.formUsuario.controls.cboROL.value=='RESIDENTE'" class="form-group col-md-6">
+                <label for="Departamento">Departamento:</label>
+                <select [formControl]="cboDepartamentos" class="form-control" id="Departamento">
+                    <option>Seleccione</option>
+                    <option *ngFor="let dep of departamentos" [value]="dep._id">{{dep.nombre}}</option>
+                </select>
+            </div>
+        </form>
+        <div class="col-md-12 d-flex justify-content-end" style="margin-bottom: 10px;">
+            <button (click)="agregarUsuario()" type="button" class="btn btn-primary">Registrar</button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #contentActualizar let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Usuario</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click'); limpiarModal()">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <form [formGroup]="formUsuarioAct" class="row">
+
+            <div class="form-group col-md-12">
+                <label for="Nombreasd">Nombre de usuario:</label>
+                <input formControlName="txtUserName" type="text" class="form-control" id="Nombreasd" placeholder="">
+            </div>
+
+            <div class="form-group col-md-12">
+                <label for="Nombre">Nombre:</label>
+                <input formControlName="txtNombre" type="text" class="form-control" id="Nombre"
+                    placeholder="Nombre de ususario">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="Paterno">Apellido Paterno:</label>
+                <input formControlName="txtApellidoPat" type="text" class="form-control" id="Paterno"
+                    placeholder="Apellido Paterno">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="Materno">Apellido Materno:</label>
+                <input formControlName="txtApellidoMat" type="text" class="form-control" id="Materno"
+                    placeholder="Apellido Materno">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="Celular">Celular:</label>
+                <input formControlName="txtCelular" type="text" class="form-control" id="Celular" placeholder="080808">
+            </div>
+
+            <div *ngIf="this.usuarioSeleccionado?.rol=='RESIDENTE'" class="form-group col-md-6">
+                <label for="Departamento">Departamento:</label>
+                <select [formControl]="cboDepartamentosAct" class="form-control" id="Departamento">
+                    <option>Seleccione</option>
+                    <option *ngFor="let dep of departamentos" [value]="dep._id">{{dep.nombre}}</option>
+                </select>
+            </div>
+
+        </form>
+        <div class="col-md-12 d-flex justify-content-end" style="margin-bottom: 10px;">
+            <button (click)="actualizarUsuario()" type="button" class="btn btn-primary">Actualizar</button>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #contentDetalle let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Usuario</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <p>Ap. Paterno: {{usuarioSeleccionadoDet?.apellidoPaterno}}</p>
+        <p>Ap. Materno: {{usuarioSeleccionadoDet?.apellidoMaterno}}</p>
+        <p>Nombre: {{usuarioSeleccionadoDet?.nombre}}</p>
+        <p>Nombre de usuario: {{usuarioSeleccionadoDet?.username}}</p>
+        <p>DNI: {{usuarioSeleccionadoDet?.dni}}</p>
+        <p>Celular: {{usuarioSeleccionadoDet?.celular}}</p>
+        <p>ROL: {{usuarioSeleccionadoDet?.rol}}</p>
+        <p *ngIf="usuarioSeleccionadoDet?.rol=='RESIDENTE'">Departamento: {{usuarioSeleccionadoDet?.departamento.nombre}}</p>
+
+    </div>
+</ng-template>

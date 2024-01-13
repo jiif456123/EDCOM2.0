@@ -1,0 +1,171 @@
+<div class="row no-gutters">
+    <div class="col-md-4 border-right">
+        <div class="settings-tray">
+            <img class="profile-image" src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg"
+                alt="Profile img">
+            <span class="settings-tray--right">
+                <i (click)="fnAbrirModal(content)" class="fa fa-plus-circle"></i>
+            </span>
+        </div>
+        <div class="conversation-comp" *ngIf="rol!='RESIDENTE'">
+            <div class="search-box">
+                <div class="input-wrapper">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    <input [(ngModel)]="filtro1" placeholder="Buscar" type="text">
+                </div>
+            </div>
+            <div *ngFor="let vconver of lConversacion | filter: filtro1">
+
+                <div (click)="seleccionarChat(vconver);" class="friend-drawer friend-drawer--onhover">
+                    <img class="profile-image"
+                        src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="">
+                    <div class="text">
+                        <h6>{{vconver.user.nombre}} {{vconver.user.apellidoPaterno}}</h6>
+                        <p class="text-muted">{{vconver.lastMessage}}</p>
+                    </div>
+                    <span class="time text-muted small">{{vconver.timeStamp| date:'shortDate'}}</span>
+                </div>
+
+                <hr>
+
+            </div>
+        </div>
+
+        <div class="conversation-comp" *ngIf="rol=='RESIDENTE'">
+            <div class="search-box">
+                <div class="input-wrapper">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    <input [(ngModel)]="filtro2" placeholder="Buscar" type="text">
+                </div>
+            </div>
+            <div *ngFor="let vconver of lConversacion | filter: filtro2">
+
+                <div (click)="seleccionarChat(vconver);" class="friend-drawer friend-drawer--onhover">
+                    <img class="profile-image"
+                        src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="">
+                    <div class="text">
+                        <h6>{{vconver.admin.nombre}}</h6>
+                        <p class="text-muted">{{vconver.lastMessage}}</p>
+                    </div>
+                    <span class="time text-muted small">{{vconver.timeStamp| date:'shortDate'}}</span>
+                </div>
+
+                <hr>
+            </div>
+        </div>
+
+    </div>
+    <div *ngIf="pOpcion==0" class="col-md-8">
+        <div style="width: 100%; height: 100%;" class="d-flex justify-content-center align-items-center">
+            <h5>
+                Seleccione un chat para empezar
+            </h5>
+        </div>
+    </div>
+    <div *ngIf="pOpcion==1" class="col-md-8">
+        <app-chat [chatSeleccionado]="vchatSeleccionado"></app-chat>
+    </div>
+</div>
+
+<!-- <div class="row rounded-lg overflow-hidden shadow">
+
+        <div class="col-5 px-0">
+            <div class="bg-white">
+
+                <div class="bg-gray px-4 py-2 bg-light">
+                    <p class="h5 mb-0 py-1">Reciente</p>
+                </div>
+                <div style="width: 100%;">
+                    <button style="width: 100%;" (click)="fnAbrirModal(content)" class="btn btn-primary">Añadir
+                        conversacion</button>
+                </div>
+                <div class="messages-box">
+                    <ul *ngIf="rol!='RESIDENTE'" class="list-group list-group-flush">
+                        <li class="list-group-item" (click)="seleccionarChat(vconver);"
+                            [ngClass]="vconver._id==vchatSeleccionado?._id ?'active':''"
+                            *ngFor="let vconver of lConversacion">
+                            <div class="media">
+                                <div class="avatar">
+                                    <img class="align-self-start mr-3"
+                                        src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg"
+                                        alt="user" width="65" class="rounded-circle">
+                                </div>
+                                <div style="margin-left: 10px;" class="media-body">
+                                    <h6 [ngClass]="vconver._id==vchatSeleccionado?._id ?'text-white':''"
+                                        class="mt-0 msg-title">{{vconver.user.nombre}} {{vconver.user.apellidoPaterno}}
+                                    </h6>
+                                    <p [ngClass]="vconver._id==vchatSeleccionado?._id ?'text-white':''"
+                                        class="msg-info">
+                                        {{vconver.lastMessage}}</p>
+                                    <small
+                                        [ngClass]="vconver._id==vchatSeleccionado?._id ?'text-white':''">{{vconver.timeStamp| date:'shortDate'}}</small>
+
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <ul *ngIf="rol=='RESIDENTE'" class="list-group list-group-flush">
+                        <li class="list-group-item" (click)="seleccionarChat(vconver);"
+                            [ngClass]="vconver._id==vchatSeleccionado?._id ?'active':''"
+                            *ngFor="let vconver of lConversacion">
+                            <a>
+                                <div class="media">
+                                    <div class="avatar"><img class="align-self-start mr-3"
+                                            src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg"
+                                            alt="user avatar" width="65" class="rounded-circle"></div>
+                                    <div class="media-body">
+                                        <h6 [ngClass]="vconver._id==vchatSeleccionado?._id ?'text-white':''"
+                                            class="mt-0 msg-title">{{vconver.admin.nombre}}</h6>
+                                        <p [ngClass]="vconver._id==vchatSeleccionado?._id ?'text-white':''"
+                                            class="msg-info">{{vconver.lastMessage}}</p>
+                                        <small
+                                            [ngClass]="vconver._id==vchatSeleccionado?._id ?'text-white':''">{{vconver.timeStamp| date:'shortDate'}}</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <div *ngIf="pOpcion==1" class="col-7 px-0">
+            <app-chat [chatSeleccionado]="vchatSeleccionado"></app-chat>
+        </div>
+        <div *ngIf="pOpcion==0" class="col-7 px-0">
+
+            <div style="width: 100%; height: 100%;" class="d-flex justify-content-center align-items-center"
+                *ngIf="pOpcion==0">
+                <h5>
+                    Seleccione un chat para empezar
+                </h5>
+            </div>
+        </div>
+
+    </div> -->
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+            Añadir Conversación
+        </h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
+            <span aria-hidden="true">
+                ×
+            </span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p *ngIf="lUser?.length==0">No hay conversaciones para agregar</p>
+        <div class="list-group">
+            <button (click)="anadirChat(vuser)" type="button" *ngFor="let vuser of lUser"
+                class="list-group-item list-group-item-action">{{vuser.nombre}} {{vuser.apellidoPaterno}}</button>
+        </div>
+    </div>
+    <div class="modal-footer">
+
+    </div>
+</ng-template>

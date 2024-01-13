@@ -1,0 +1,59 @@
+<div class="form-group">
+
+    <div class="card-header text-uppercase">Seleccionar Mes..
+        <div>
+            <input type="date" class="form-control" [(ngModel)]="registrarPaquetes.fechaEmitida" placeholder="Buscar Mes ....">
+        </div>
+    </div>
+</div>
+<div class="card-body">
+    <button type="button" class="btn btn-outline-primary" routerLink="nuevo" style="margin-bottom: 10px; float: right;">
+        <i class="mdi mdi-pencil mdi-18px">REGISTRAR PAQUETE</i>
+     
+      </button>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover border border">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover border border">
+                    <thead style="color: black;">
+                        <tr>
+                            <th class="text-center">Cantidad</th>
+                            <th class="text-center">Fecha Emitida</th>
+                            <th class="text-center">Descripción</th>
+                            <th class="text-center">Estado</th>
+                            <th class="text-center" colspan="2">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tr *ngFor="let r of registrarpaquetes | filterBy: registrarPaquetes">
+                        <td class="text-center"> {{r.cantidad}}</td>
+                        <td class="text-center"> {{r.fechaEmitida | date:'dd/MM/yyyy'}}</td>
+                        <td class="text-center"> {{r.descripcion}}</td>
+                        <th class="text-center">
+                            <ng-container *ngIf="r.estado==0">
+                                <span>
+                               No Entregado      
+                            </span>
+                            </ng-container>
+                            <ng-container *ngIf="r.estado==1">
+                                <span>
+                               Entregado      
+                            </span>
+                            </ng-container>
+                        </th>
+                        <td class="text-center">
+                            <button class="btn btn-success btn-sm btn-block" [routerLink]="['editar', r._id]">
+                                <i class="fa fa-pencil fa-lg"></i> 
+                                <i class="mdi mdi-update mdi-12px">Editar</i> 
+                           </button>
+                        </td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-danger btn-sm btn-block" (click)="eliminarPaquete(r._id)">
+                                <i class="fa fa-trash fa-lg"></i>  
+                                <i class="mdi mdi-delete-empty mdi-12px">Eliminar</i>
+                                 </button>
+                        </td>
+                </table>
+            </div>
+        </table>
+    </div>
+</div>
